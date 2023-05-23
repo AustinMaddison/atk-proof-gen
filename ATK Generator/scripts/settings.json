@@ -1,0 +1,22 @@
+{   
+    // Scene
+    "atk_model_scene_path" : "",
+    "backdrop_scene_path" : "",
+    
+    // Camera
+    "camera_px" : 0.1,
+    "camera_py" : 0.1,
+    "camera_pz" : 0.1,
+    "camera_fstop": 14,
+    "camera_focal_length": 35,
+
+    // Render
+    "engine" : "BLENDER_CYCLES",   
+    "render_image_extension" : "",  
+    "render_output_directroy" : "", 
+    "resolution_percentage" : 100,   
+    "resolution_x" : 1080,
+    "resolution_y" : 1920,
+    "use_compositing": "True"
+
+}

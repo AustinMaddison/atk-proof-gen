@@ -1,0 +1,83 @@
+import bpy
+import math
+import os
+import random
+
+
+class Scene:
+
+    class Scene_Script:
+        
+        def random_file(folder_dir: str) -> str:
+            '''
+            Returns random file path of filder
+            '''
+            # Get filename
+            filename = random.choice(os.listdir(os.path.abspath(folder_dir)))
+            return os.path.abspath(folder_dir)+ '/' + filename
+        
+        def link_scene_random(folder_dir: str):
+            '''
+            Link a random blender scene from a given directory
+            '''
+
+            filepath = random_file(folder_dir)
+
+            # link all objects starting with 'Cube'
+            with bpy.data.libraries.load(filepath, link=False) as (data_from, data_to):
+                data_to.objects = [name for name in data_from.objects]
+
+            # link object to scene collection
+            for obj in data_to.objects:
+                if obj is not None:
+                bpy.context.collection.objects.link(obj)
+
+
+        def link_scene(folder_dir: str):
+            '''
+            Link a specific blender scene from a given directory
+            '''
+
+            filepath = os.path.abspath(folder_dir)
+
+            # link all objects
+            with bpy.data.libraries.load(filepath, link=False) as (data_from, data_to):
+                data_to.objects = [name for name in data_from.objects]
+
+            # link object to scene collection
+            for obj in data_to.objects:
+                if obj is not None:
+                bpy.context.collection.objects.link(obj)
+
+        def rotate_random_z(object_name: str):
+
+            # Select Object
+            bpy.ops.object.select_all(action='DESELECT')
+            objectToSelect = bpy.data.objects[object_name]
+            objectToSelect.select_set(True)    
+            bpy.context.view_layer.objects.active = objectToSelect
+            
+            # Randomly Rotate Object
+            r = random.randint(-100,100)/100
+            bpy.context.active_object.rotation_mode = 'XYZ'
+            bpy.context.active_object.rotation_euler = (0, 0, 3*r)
+
+
+
+
+# IMPORT           
+# Append backdrop, atk, and lighting
+link_scene_random('../../assets/backdrop_scenes/')
+link_scene_random('../../assets/atk_scenes/')
+link_scene_random('../../assets/lighting_set_scenes/')
+
+
+# LAYOUT
+# Randomly rotate atk
+rotate_random_z('ATK')
+
+
+
+
+
+
